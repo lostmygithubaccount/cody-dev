@@ -1,0 +1,14 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+command: |
+  ls ${{inputs.data_dir}}
+  echo "=========================================="
+  ls ${{inputs.v1_titanic}}
+inputs:
+  data_dir:
+    type: uri_folder
+    path: azureml://datastores/workspaceblobstore/paths/example-data/
+  v1_titanic:
+    type: uri_folder
+    path: azureml:titanic-file-v1:1
+environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu@latest
+compute: azureml:cpu-cluster
