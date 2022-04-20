@@ -1,0 +1,18 @@
+name: asset-approved
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    - AzureML.Registry.AssetApprovalEvent
+jobs:
+  if: ${{github.event.asset_type == "model" && github.event.asset_name = "the-model"}}
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: check out repo
+      uses: actions/checkout@v2
+    - name: azure login
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZ_CREDS}}
+    - name: evaluate model
+      run: az ml job create -f eval-job.yml --stream
