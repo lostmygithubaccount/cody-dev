@@ -13,7 +13,7 @@ echo "Creating resource group..."
 az group create -n $GROUP -l $LOCATION
 
 echo "Creating service principal and setting repository secret..."
-az ad sp create-for-rbac --name $GROUP --role contributor --scopes /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP --sdk-auth | gh secret set $SECRET_NAME
+az ad sp create-for-rbac --name cody-gh --role contributor --scopes /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP --sdk-auth | gh secret set $SECRET_NAME
 
 echo "Creating Azure Machine Learning workspace..."
 az ml workspace create -n $WORKSPACE -g $GROUP -l $LOCATION
